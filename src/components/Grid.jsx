@@ -54,7 +54,7 @@ export default function Grid({length}){
         setPokemon(copy);
     }
 
-    return (
+    return (pokemon.length === 0 ? <p>Loading grid...</p> : 
         <div id="pokemonCards">
                 {pokemon.map(pokemon => (
                     <Card name={pokemon.name} image={pokemon.image} randomRender={randomizePokemon} key={pokemon.id}></Card>
