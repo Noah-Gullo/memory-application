@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "./Card.jsx"
 
-export default function Grid({length}){
+export default function Grid({length, handleClick}){
     const [pokemon, setPokemon] = useState([]);
     const randomPokemon = [];
 
@@ -45,12 +45,13 @@ export default function Grid({length}){
         };
     }, []);
 
-    function randomizePokemon(){
+    function randomizePokemon(name){
         const copy = [...pokemon];
         for(let i = copy.length - 1; i > 0; i--){
             const random = Math.floor(Math.random() * (i + 1));
             [copy[i], copy[random]] = [copy[random], copy[i]];
         }
+        handleClick(name);
         setPokemon(copy);
     }
 
