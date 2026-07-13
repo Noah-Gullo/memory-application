@@ -14,7 +14,7 @@ export default function Grid({length}){
         }
 
         for(let i = 0; i < length; i++){
-            const randomNumber = Math.round(Math.random() * randomKeys.length + 1);
+            const randomNumber = Math.round(Math.random() * randomKeys.length);
             randomKeys.splice(randomNumber, 1);
             
             const url = "https://pokeapi.co/api/v2/pokemon/" + randomNumber;
@@ -45,15 +45,20 @@ export default function Grid({length}){
         };
     }, []);
 
-    function randomRender(){
-        return (
-            <>
-                {pokemon.map(pokemon => (
-                    <Card name={pokemon.name} image={pokemon.image} randomRender={randomRender} key={pokemon.id}></Card>
-                ))}
-            </>
-        )
+    function randomizePokemon(){
+        const copy = [...pokemon];
+        for(let i = copy.length - 1; i > 0; i--){
+            const random = Math.floor(Math.random() * (i + 1));
+            [copy[i], copy[random]] = [copy[random], copy[i]];
+        }
+        setPokemon(copy);
     }
 
-    return randomRender();
+    return (
+        <div id="pokemonCards">
+                {pokemon.map(pokemon => (
+                    <Card name={pokemon.name} image={pokemon.image} randomRender={randomizePokemon} key={pokemon.id}></Card>
+                ))}
+        </div>
+    );
 }
