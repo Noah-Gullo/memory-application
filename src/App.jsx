@@ -1,12 +1,19 @@
 import Scoreboard from './components/Scoreboard.jsx'
 import Grid from './components/Grid.jsx'
-import { use, useState } from "react"
+import { use, useEffect, useState } from "react"
 import './styles/App.css'
 
 export default function App() {
   const [clicked, setClicked] = useState([]);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+
+  useEffect(() => {
+    const storedHighScore = localStorage.getItem("High Score");
+    if(storedHighScore != null){
+      setHighScore(storedHighScore);
+    }
+  }, []);
 
   function handleClick(name){
     const copy = [...clicked];
@@ -25,6 +32,7 @@ export default function App() {
 
     if(score + 1 > highScore){
       setHighScore(score + 1);
+      localStorage.setItem("High Score", score + 1);
     }
   }
 
@@ -36,7 +44,7 @@ export default function App() {
     <>
       <h1 id="title">Pokemon Memory Game</h1>
       <Scoreboard score={score} highScore={highScore}></Scoreboard>
-      <Grid length={38} handleClick={handleClick}></Grid>
+      <Grid length={50} handleClick={handleClick}></Grid>
     </>
   )
 }
