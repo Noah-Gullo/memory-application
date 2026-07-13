@@ -1,7 +1,7 @@
-export default function Card({name, image}){
-    console.log("CARD CALLED");
+export default function Card({name, image, randomRender}){
     return (
         <>
+            <img src={image} onClick={randomRender}></img>
             <p>{name}</p>
         </>
     )

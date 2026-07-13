@@ -24,7 +24,7 @@ export default function Grid({length}){
                     throw new Error(`Response status: ${response.status}`);
                 }
                 const result = await response.json();
-                randomPokemon.push({"name": result.name, "image": result.sprites["front_default"], "id": randomNumber});
+                randomPokemon.push({"name": result.name[0].toUpperCase() + result.name.slice(1), "image": result.sprites["front_default"], "id": randomNumber});
             } catch(error){
                 console.log(error.message);
             }
@@ -45,11 +45,15 @@ export default function Grid({length}){
         };
     }, []);
 
-    return (
-        <>
-            {pokemon.map(pokemon => (
-                <Card name={pokemon.name} image={pokemon.image} key={pokemon.id}></Card>
-            ))}
-        </>
-    );
+    function randomRender(){
+        return (
+            <>
+                {pokemon.map(pokemon => (
+                    <Card name={pokemon.name} image={pokemon.image} randomRender={randomRender} key={pokemon.id}></Card>
+                ))}
+            </>
+        )
+    }
+
+    return randomRender();
 }
