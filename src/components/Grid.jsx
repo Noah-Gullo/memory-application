@@ -27,10 +27,11 @@ export default function Grid({length}){
                 console.log(error.message);
             }
         }
-
+ 
         setPokemon(randomPokemon);
     }
 
+    
     useEffect(() => {
         getRandomPokemon();
         return () =>  {[]};
