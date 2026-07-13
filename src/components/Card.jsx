@@ -1,7 +1,7 @@
-export default function Card(){
+export default function Card({name, image}){
     return (
         <>
-            <p></p>
+            <p>{name}</p>
         </>
     )
 }

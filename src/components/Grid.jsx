@@ -1,23 +1,25 @@
+import { useEffect, useState } from "react";
 import Card from "./Card.jsx"
 
-export default function Grid(map){
-    async function generatePokemon(length){
+export default function Grid({length}){
+    const [pokemon, setPokemon] = useState([]);
+    const randomPokemon = [];
+
+    async function getRandomPokemon(){
         const randomKeys = [];
-        const randomPokemon = [];
+        for(let i = 1; i <= length; i++){
+            randomKeys.push(i);
+        }
 
         for(let i = 0; i < length; i++){
-            const randomNumber = Math.round(Math.random() * 1025 + 1);
-            while(randomKeys.includes(randomNumber)){
-                randomNumber = Math.round(Math.random() * 1025 + 1);
-            }
-
-            randomKeys.push(randomNumber);
+            const randomNumber = Math.round(Math.random() * randomKeys.length + 1);
+            randomKeys.splice(randomNumber, 1);
+            
             const url = "https://pokeapi.co/api/v2/pokemon/" + randomNumber;
-
             try{
                 const response = await fetch(url);
                 if(!response.ok){
-                throw new Error(`Response status: ${response.status}`);
+                    throw new Error(`Response status: ${response.status}`);
                 }
                 const result = await response.json();
                 randomPokemon.push({"name": result.name, "image": result.sprites["front_default"]});
@@ -25,19 +27,20 @@ export default function Grid(map){
                 console.log(error.message);
             }
         }
-        return randomPokemon;
+
+        setPokemon(randomPokemon);
     }
 
-    const randomPokemon = [];
-    generatePokemon(5).then(result => {
-        for(let i = 0; i < result.length; i++){
-            randomPokemon.push(result[i]);
-        }
-    })
-
+    useEffect(() => {
+        getRandomPokemon();
+        return () =>  {[]};
+    }, []);
 
     return (
         <>
+            {pokemon.map(pokemon => {
+                <Card name={pokemon.name}></Card>
+            })}
         </>
     )
 }

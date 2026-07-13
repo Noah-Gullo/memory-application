@@ -19,8 +19,6 @@ export default function Scoreboard(){
         <>
             <p>Current Score: {score}</p>
             <p>High     Score: {highScore}</p>
-            <button onClick={increaseScore}>Increase Score</button>
-            <button onClick={resetScore}>Reset Score</button>
         </>
     )
 }
