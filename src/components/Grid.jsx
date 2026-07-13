@@ -24,7 +24,7 @@ export default function Grid({length, handleClick}){
                     throw new Error(`Response status: ${response.status}`);
                 }
                 const result = await response.json();
-                randomPokemon.push({"name": result.name[0].toUpperCase() + result.name.slice(1), "image": result.sprites["front_default"], "id": randomNumber});
+                randomPokemon.push({"name": (result.name[0].toUpperCase() + result.name.slice(1)).split("-")[0], "image": result.sprites["front_default"], "id": randomNumber});
             } catch(error){
                 console.log(error.message);
             }
@@ -51,8 +51,8 @@ export default function Grid({length, handleClick}){
             const random = Math.floor(Math.random() * (i + 1));
             [copy[i], copy[random]] = [copy[random], copy[i]];
         }
-        handleClick(name);
         setPokemon(copy);
+        handleClick(name);
     }
 
     return (pokemon.length === 0 ? <p>Loading grid...</p> : 

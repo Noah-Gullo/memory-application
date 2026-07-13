@@ -1,3 +1,27 @@
+*{
+    box-sizing: border-box;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 0px;
+    margin: 0px;
+}
+
+#title{
+    display: flex;
+    justify-self: center;
+}
+
+#scoreboard{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 1em;
+}
+
+:root{
+    --hover: rgb(117, 117, 117);
+    --click: rgb(58, 58, 58);
+}
+
 #pokemonCards{
     display: flex;
     flex-wrap: wrap;
@@ -6,6 +30,20 @@
 }
 
 .card{
-    justify-self: center;
-    color: pink;
+    border-radius: 0.25em;
+    outline: 2px solid black;
+    transition: ease-in-out 0.2s;
+}
+
+.card:hover{
+    background-color: var(--hover);
+}
+
+.card:active{
+    background-color: var(--click);
+    transition: ease-in-out 0.05s;
+}
+
+.card p{
+    text-align: center;
 }
