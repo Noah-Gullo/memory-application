@@ -7,7 +7,9 @@ export default function Grid({length}){
 
     async function getRandomPokemon(){
         const randomKeys = [];
-        for(let i = 1; i <= length; i++){
+        const POKEMON_LIST_LENGTH = 1025;
+
+        for(let i = 1; i <= POKEMON_LIST_LENGTH; i++){
             randomKeys.push(i);
         }
 
@@ -22,26 +24,32 @@ export default function Grid({length}){
                     throw new Error(`Response status: ${response.status}`);
                 }
                 const result = await response.json();
-                randomPokemon.push({"name": result.name, "image": result.sprites["front_default"]});
+                randomPokemon.push({"name": result.name, "image": result.sprites["front_default"], "id": randomNumber});
             } catch(error){
                 console.log(error.message);
             }
         }
  
-        setPokemon(randomPokemon);
+        return randomPokemon;
     }
 
-    
     useEffect(() => {
-        getRandomPokemon();
-        return () =>  {[]};
+        let ignore = false;
+        getRandomPokemon().then(result => {
+            if(!ignore){
+                setPokemon(result);
+            }
+        });
+        return () => {
+            ignore = true;
+        };
     }, []);
 
     return (
         <>
-            {pokemon.map(pokemon => {
-                <Card name={pokemon.name}></Card>
-            })}
+            {pokemon.map(pokemon => (
+                <Card name={pokemon.name} image={pokemon.image} key={pokemon.id}></Card>
+            ))}
         </>
-    )
+    );
 }

@@ -6,9 +6,9 @@ export default function App() {
 
   return (
     <>
-      <h1>Pokemon Memory Game</h1>
+      <h1 id="title">Pokemon Memory Game</h1>
       <Scoreboard></Scoreboard>
-      <Grid length={25}></Grid>
+      <Grid length={10}></Grid>
     </>
   )
 }

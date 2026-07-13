@@ -17,8 +17,8 @@ export default function Scoreboard(){
 
     return (
         <>
-            <p>Current Score: {score}</p>
-            <p>High     Score: {highScore}</p>
+            <p id="currentScore">Current Score: {score}</p>
+            <p id="highScore">High Score: {highScore}</p>
         </>
     )
 }
