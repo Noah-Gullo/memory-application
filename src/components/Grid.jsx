@@ -3,20 +3,23 @@ import Card from "./Card.jsx"
 
 export default function Grid({length, handleClick}){
     const [pokemon, setPokemon] = useState([]);
-    const randomPokemon = [];
 
     async function getRandomPokemon(){
         const randomKeys = [];
+        const randomPokemon = [];
         const POKEMON_LIST_LENGTH = 1025;
 
         for(let i = 1; i <= POKEMON_LIST_LENGTH; i++){
             randomKeys.push(i);
         }
 
+        for(let i = randomKeys.length - 1; i > 0; i--){
+            const random = Math.floor(Math.random() * (i + 1));
+            [randomKeys[i], randomKeys[random]] = [randomKeys[random], randomKeys[i]];
+        }
+
         for(let i = 0; i < length; i++){
-            const randomNumber = Math.round(Math.random() * randomKeys.length);
-            randomKeys.splice(randomNumber, 1);
-            
+            const randomNumber = randomKeys[i];
             const url = "https://pokeapi.co/api/v2/pokemon/" + randomNumber;
             try{
                 const response = await fetch(url);
