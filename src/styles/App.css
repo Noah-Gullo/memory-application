@@ -1,0 +1,11 @@
+#pokemonCards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em;
+}
+
+.card{
+    justify-self: center;
+    color: pink;
+}

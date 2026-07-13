@@ -36,7 +36,7 @@ export default function App() {
     <>
       <h1 id="title">Pokemon Memory Game</h1>
       <Scoreboard score={score} highScore={highScore}></Scoreboard>
-      <Grid length={10} handleClick={handleClick}></Grid>
+      <Grid length={38} handleClick={handleClick}></Grid>
     </>
   )
 }
